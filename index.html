@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smash or Pass: Birthday Edition</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap');
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #0d0d0d;
+            color: #fff;
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+            background-image: radial-gradient(circle at top, #2a0813, #0d0d0d);
+        }
+
+        .bday-banner {
+            background: #ff2a5f;
+            color: white;
+            padding: 5px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            box-shadow: 0 0 15px rgba(255, 42, 95, 0.5);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            color: #ff2a5f;
+            font-size: 2.8rem;
+            margin: 0;
+            text-shadow: 0 0 15px rgba(255, 42, 95, 0.6);
+        }
+
+        .header p {
+            color: #ccc;
+            margin-top: 5px;
+            font-size: 1.2rem;
+        }
+
+        .card {
+            background-color: #1a1a1a;
+            width: 90%;
+            max-width: 450px;
+            border-radius: 25px;
+            padding: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8), 0 0 20px rgba(255, 42, 95, 0.2);
+            text-align: center;
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+
+        .character-img {
+            width: 100%;
+            height: 380px;
+            object-fit: cover;
+            object-position: top; /* Keeps their faces in frame */
+            border-radius: 15px;
+            margin-bottom: 15px;
+            border: 2px solid #333;
+        }
+
+        .character-name {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin: 10px 0 0 0;
+            letter-spacing: 1px;
+        }
+
+        .character-show {
+            color: #ff2a5f;
+            font-weight: 600;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+        }
+
+        .flags {
+            text-align: left;
+            background: #222;
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+            line-height: 1.4;
+            border-left: 4px solid #ff2a5f;
+        }
+
+        .flags span {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+        }
+
+        button {
+            flex: 1;
+            padding: 15px;
+            font-size: 1.4rem;
+            font-weight: 800;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        button:active {
+            transform: scale(0.92);
+        }
+
+        .btn-pass {
+            background-color: #2a2a2a;
+            color: #aaa;
+            border: 2px solid #444;
+        }
+
+        .btn-pass:hover {
+            background-color: #333;
+            color: white;
+            border-color: #666;
+        }
+
+        .btn-smash {
+            background-color: #ff2a5f;
+            color: white;
+            box-shadow: 0 0 15px rgba(255, 42, 95, 0.4);
+        }
+
+        .btn-smash:hover {
+            background-color: #ff4d79;
+            box-shadow: 0 0 25px rgba(255, 42, 95, 0.6);
+        }
+
+        #results {
+            display: none;
+            text-align: center;
+            max-width: 600px;
+            padding: 20px;
+        }
+
+        #results h2 {
+            font-size: 3.5rem;
+            color: #ff2a5f;
+            margin-bottom: 10px;
+        }
+
+        .diagnosis-box {
+            background: #1a1a1a;
+            padding: 30px;
+            border-radius: 20px;
+            margin-top: 20px;
+            border: 2px solid #ff2a5f;
+            box-shadow: 0 0 30px rgba(255, 42, 95, 0.2);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bday-banner">🥂 Happy 22nd Birthday! 🥂</div>
+
+    <div class="header" id="header">
+        <h1>SMASH OR PASS</h1>
+        <p>🔪 The Fictional Serial Killer Edition 🩸</p>
+    </div>
+
+    <div class="card" id="game-card">
+        <img src="" alt="Character" class="character-img" id="char-img">
+        <div class="character-name" id="char-name">Name</div>
+        <div class="character-show" id="char-show">Show</div>
+
+        <div class="flags">
+            <span id="green-flags">🟩 <b>Green Flags:</b> </span>
+            <span id="red-flags">🚩 <b>Red Flags:</b> </span>
+        </div>
+
+        <div class="buttons">
+            <button class="btn-pass" onclick="handleChoice('pass')">🙅‍♀️ PASS</button>
+            <button class="btn-smash" onclick="handleChoice('smash')">💖 SMASH</button>
+        </div>
+    </div>
+
+    <div id="results">
+        <h2>THE DIAGNOSIS 🩺</h2>
+        <p style="font-size: 1.5rem;">The group smashed <b id="score" style="color:#ff2a5f; font-size: 2rem;">0</b> out of 7 red flags.</p>
+        <div class="diagnosis-box">
+            <h3 id="diagnosis-title" style="font-size: 2.2rem; margin:0 0 15px 0;">Title</h3>
+            <p id="diagnosis-desc" style="font-size: 1.2rem; color: #ccc; line-height: 1.6;">Description</p>
+        </div>
+        <button style="margin-top: 30px; background: #ff2a5f; color: white; padding: 15px 40px; border-radius: 30px;" onclick="location.reload()">Play Again 🔄</button>
+    </div>
+
+    <script>
+        // All the characters with working Wikipedia/Wikimedia image links!
+        const characters =[
+            {
+                name: "Dexter Morgan", show: "Dexter",
+                img: "https://preview.redd.it/how-can-i-get-dexters-physique-v0-9y04yzz3tg1g1.jpeg?auto=webp&s=15de6b4e240d0e1f58b3ccc25675b149e7c234a7",
+                green: "Has a boat. Spotless apartment. Only targets bad guys.",
+                red: "Lies constantly. Will absolutely put you in a plastic wrap burrito."
+            },
+            {
+                name: "Joe Goldberg", show: "YOU",
+                img: "https://i.redd.it/a8svjo9z5lxe1.jpeg",
+                green: "Great book recommendations. Memorized your complicated coffee order.",
+                red: "Memorized it by stalking you. Has a temperature-controlled glass cage."
+            },
+            {
+                name: "Villanelle", show: "Killing Eve",
+                img: "https://i.redd.it/sju18bhehay21.jpg",
+                green: "Flawless fashion sense. Rich. Takes you on luxury trips to Europe.",
+                red: "Will ruin your life. Might stab you with a poisoned hairpin if bored."
+            },
+            {
+                name: "Dr. Hannibal Lecter", show: "Hannibal",
+                img: "https://media.gq.com/photos/57acea7c251c1fea0b079a6d/4:3/w_2664,h_1998,c_limit/GettyImages-477790616.jpg",
+                green: "Free therapy. Michelin-star level chef. Plays the harpsichord.",
+                red: "You are what you eat... and he might literally eat you."
+            },
+            {
+                name: "Patrick Bateman", show: "American Psycho",
+                img: "https://ktla.com/wp-content/uploads/sites/4/2024/10/GettyImages-1856843624-1.jpg",
+                green: "10/10 morning skincare routine. Impeccable taste in business cards.",
+                red: "Will drop a running chainsaw down a stairwell at you."
+            },
+            {
+                name: "Love Quinn", show: "YOU",
+                img: "https://static.wikia.nocookie.net/youtv/images/c/ca/Love_Quinn_Adult.jpg/revision/latest?cb=20230312044312",
+                green: "Will bake you the best pastries of your life. Fiercely loyal.",
+                red: "Violently jealous. Very quick with a rolling pin."
+            },
+            {
+                name: "Ghost Face", show: "Scream",
+                img: "https://upload.wikimedia.org/wikipedia/en/a/ac/Ghostface.jpg",
+                green: "Great conversationalist with excellent phone etiquette. Always takes an active interest in your hobbies (especially your favorite scary movies!)",
+                red: "Major clinger who will literally call you from inside your own house. His friend group is incredibly toxic and prone to backstabbing."
+            }
+        ];
+
+        let currentIndex = 0;
+        let smashCount = 0;
+
+        function loadCharacter() {
+            if (currentIndex >= characters.length) {
+                showResults();
+                return;
+            }
+            const char = characters[currentIndex];
+            document.getElementById('char-img').src = char.img;
+            document.getElementById('char-name').innerText = char.name;
+            document.getElementById('char-show').innerText = char.show;
+            document.getElementById('green-flags').innerHTML = `🟩 <b>Green Flags:</b> ${char.green}`;
+            document.getElementById('red-flags').innerHTML = `🚩 <b>Red Flags:</b> ${char.red}`;
+        }
+
+        function handleChoice(choice) {
+            if (choice === 'smash') smashCount++;
+            currentIndex++;
+
+            // Tinder-style swipe animation
+            const card = document.getElementById('game-card');
+            card.style.transform = choice === 'smash' ? 'translateX(100px) rotate(10deg)' : 'translateX(-100px) rotate(-10deg)';
+            card.style.opacity = '0';
+
+            setTimeout(() => {
+                loadCharacter();
+                card.style.transform = 'none';
+                card.style.opacity = '1';
+            }, 300);
+        }
+
+        function showResults() {
+            document.querySelector('.bday-banner').style.display = 'none';
+            document.getElementById('header').style.display = 'none';
+            document.getElementById('game-card').style.display = 'none';
+            document.getElementById('results').style.display = 'block';
+            document.getElementById('score').innerText = smashCount;
+
+            const title = document.getElementById('diagnosis-title');
+            const desc = document.getElementById('diagnosis-desc');
+
+            if (smashCount <= 2) {
+                title.innerText = "The Survivors 🟢";
+                title.style.color = "#4CAF50";
+                desc.innerText = "Y'all have healthy boundaries and a strong survival instinct. You are the final girls. You will live to see a sequel!";
+            } else if (smashCount <= 4) {
+                title.innerText = "The 'We Can Fix Him' Syndrome 🟡";
+                title.style.color = "#FFC107";
+                desc.innerText = "You girls love a toxic project. Spoiler alert: You cannot fix them. Please reconsider your dating choices before you end up on a True Crime podcast.";
+            } else {
+                title.innerText = "THE DANGER ZONE 🔴";
+                title.style.color = "#ff2a5f";
+                desc.innerText = "Babes, YOU are the red flags. Seek group therapy immediately. Do not pass go. Hand over your dating apps to a trusted friend.";
+            }
+        }
+
+        // Start game
+        loadCharacter();
+    </script>
+</body>
+</html>
