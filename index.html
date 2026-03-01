@@ -200,7 +200,7 @@
 
     <div id="results">
         <h2>THE DIAGNOSIS 🩺</h2>
-        <p style="font-size: 1.5rem;">The group smashed <b id="score" style="color:#ff2a5f; font-size: 2rem;">0</b> out of 10 red flags.</p>
+        <p style="font-size: 1.5rem;">The group smashed <b id="score" style="color:#ff2a5f; font-size: 2rem;">0</b> out of 12 red flags.</p>
         <div class="diagnosis-box">
             <h3 id="diagnosis-title" style="font-size: 2.2rem; margin:0 0 15px 0;">Title</h3>
             <p id="diagnosis-desc" style="font-size: 1.2rem; color: #ccc; line-height: 1.6;">Description</p>
@@ -327,11 +327,11 @@
             const title = document.getElementById('diagnosis-title');
             const desc = document.getElementById('diagnosis-desc');
 
-            if (smashCount <= 2) {
+            if (smashCount <= 4) {
                 title.innerText = "The Survivors 🟢";
                 title.style.color = "#4CAF50";
                 desc.innerText = "Y'all have healthy boundaries and a strong survival instinct. You are the final girls. You will live to see a sequel!";
-            } else if (smashCount <= 4) {
+            } else if (smashCount <= 6) {
                 title.innerText = "The 'We Can Fix Him' Syndrome 🟡";
                 title.style.color = "#FFC107";
                 desc.innerText = "You girls love a toxic project. Spoiler alert: You cannot fix them. Please reconsider your dating choices before you end up on a True Crime podcast.";
